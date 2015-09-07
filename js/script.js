@@ -1,22 +1,43 @@
 $(document).ready(function() {
   console.log('Ready to go, RoHo.');
 
-  var searchOptionArtist;
-  var searchOptionAlbum;
-  var searchOptionTrack;
+  var searchValue;
+  searchValue = 'zappa';
+  var searchType;
+  searchType = 'album';
+  var searchTypes;
+
 
   function artistSearch () {
-    $.get('https://api.spotify.com/v1/search?q=coldplay&type=artist', function(response) {
-      var theArtists = response.artists.items;
-      console.log(theArtists);
-      $.each(theArtists, function(index, value) {
+    var artistUrl = 'https://api.spotify.com/v1/search?q=' + searchValue + '&type=' + searchType;
+    $.get(artistUrl, function(response) {
+      switch (searchType) {
+      case 'artist':
+        var arr = response.artists.items;
+        break;
+      case 'album':
+        var arr = response.albums.items;
+        break;
+      case 'track':
+        var arr = response.tracks.items;
+        break;
+      }
+      console.log(arr);
+      $.each(arr, function(index, value) {
         console.log(value.name);
       });
-      // debugger
     });
   }; //END OF FUNCTION ARTIST_SEARCH
 
-  search();
+
+
+
+
+
+
+
+
+  artistSearch();
 
 
 
