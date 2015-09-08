@@ -1,16 +1,23 @@
 $(document).ready(function() {
   console.log('Ready to go, RoHo.');
 
+  var searchBox = $('#search-box');
+  var searchSelector = $('#search-selector');
+  var searchButton = $('#search-button');
+
+  searchSelector.on('change', search);
+  searchButton.on('click', search);
+
   var searchValue;
-  searchValue = 'zappa';
   var searchType;
-  searchType = 'album';
   var searchTypes;
 
-
-  function artistSearch () {
-    var artistUrl = 'https://api.spotify.com/v1/search?q=' + searchValue + '&type=' + searchType;
-    $.get(artistUrl, function(response) {
+  function search () {
+    searchValue = searchBox.val();
+    searchType = searchSelector.val();
+    debugger
+    var url = 'https://api.spotify.com/v1/search?q=' + searchValue + '&type=' + searchType;
+    $.get(url, function(response) {
       switch (searchType) {
       case 'artist':
         var arr = response.artists.items;
@@ -27,17 +34,9 @@ $(document).ready(function() {
         console.log(value.name);
       });
     });
-  }; //END OF FUNCTION ARTIST_SEARCH
+  }; //END OF FUNCTION SEARCH
 
 
-
-
-
-
-
-
-
-  artistSearch();
 
 
 
